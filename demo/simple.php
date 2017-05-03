@@ -20,4 +20,3 @@ $config->save('simple', $slice);
 var_dump($slice->asArray());
 
 \Bavix\Helpers\File::remove(__DIR__ . '/data/simple.' . $files[0]);
-

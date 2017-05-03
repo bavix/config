@@ -1,6 +1,6 @@
 {
   "name": "bavix/config",
-  "description": "json",
+  "description": "%json.description%",
   "license": "MIT",
   "authors": [
     {

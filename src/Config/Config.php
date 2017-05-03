@@ -3,7 +3,7 @@
 namespace Bavix\Config;
 
 use Bavix\Exceptions\NotFound;
-use Bavix\Exceptions\PermissionDenied;
+use Bavix\Exceptions;
 use Bavix\Helpers\File;
 use Bavix\SDK\FileLoader;
 use Bavix\SDK\Path;
@@ -33,14 +33,30 @@ class Config
     protected $extensions;
 
     /**
+     * @var array|Slice
+     */
+    protected $parameters;
+
+    /**
      * Config constructor.
      *
      * @param string $root
+     *
+     * @throws Exceptions\PermissionDenied
      */
     public function __construct($root)
     {
         $this->root       = Path::slash($root);
         $this->extensions = FileLoader::extensions();
+
+        try
+        {
+            $this->parameters = $this->loader('_bavix')->asSlice();
+        }
+        catch (NotFound\Path $path)
+        {
+            // file `_bavix` not found
+        }
     }
 
     /**
@@ -60,7 +76,7 @@ class Config
      * @return FileLoader\DataInterface
      *
      * @throws NotFound\Path
-     * @throws PermissionDenied
+     * @throws Exceptions\PermissionDenied
      */
     protected function loader($name)
     {
@@ -93,13 +109,15 @@ class Config
      * @return Slice
      *
      * @throws NotFound\Path
-     * @throws PermissionDenied
+     * @throws Exceptions\PermissionDenied
      */
     public function get($name)
     {
         if (empty($this->slices[$name]))
         {
-            $this->slices[$name] = $this->loader($name)->asSlice();
+            $this->slices[$name] = $this->loader($name)->asSlice(
+                $this->parameters
+            );
         }
 
         return $this->slices[$name];
@@ -111,8 +129,7 @@ class Config
      *
      * @return bool
      *
-     * @throws NotFound\Path
-     * @throws PermissionDenied
+     * @throws Exceptions\PermissionDenied
      */
     public function save($name, $data)
     {

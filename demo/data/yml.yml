@@ -1,5 +1,5 @@
 name: bavix/config
-description: yml
+description: %yml.description%
 license: MIT
 authors:
     - { name: REZ1DENT3, email: info@babichev.net }

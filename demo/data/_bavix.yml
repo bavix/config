@@ -1,0 +1,8 @@
+yaml:
+  description: yaml
+yml:
+  description: yml
+php:
+  description: php
+json:
+  description: json

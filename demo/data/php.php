@@ -1,6 +1,6 @@
 <?php return array (
   'name' => 'bavix/config',
-  'description' => 'php',
+  'description' => '%php.description%',
   'license' => 'MIT',
   'authors' => 
   array (
