@@ -2,8 +2,8 @@
 
 namespace Bavix\Config;
 
-use Bavix\Exceptions\NotFound;
 use Bavix\Exceptions;
+use Bavix\Exceptions\NotFound;
 use Bavix\Helpers\File;
 use Bavix\SDK\FileLoader;
 use Bavix\SDK\Path;
@@ -76,10 +76,16 @@ class Config
      * @return FileLoader\DataInterface
      *
      * @throws NotFound\Path
+     * @throws Exceptions\Invalid
      * @throws Exceptions\PermissionDenied
      */
     protected function loader($name)
     {
+        if (preg_match('~\.~', $name))
+        {
+            throw new Exceptions\Invalid($name);
+        }
+
         if (isset($this->loaders[$name]))
         {
             return $this->loaders[$name];
@@ -109,6 +115,7 @@ class Config
      * @return Slice
      *
      * @throws NotFound\Path
+     * @throws Exceptions\Invalid
      * @throws Exceptions\PermissionDenied
      */
     public function get($name)
@@ -129,6 +136,7 @@ class Config
      *
      * @return bool
      *
+     * @throws Exceptions\Invalid
      * @throws Exceptions\PermissionDenied
      */
     public function save($name, $data)
@@ -143,6 +151,28 @@ class Config
 
             return $this->save($name, $data);
         }
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     *
+     * @throws NotFound\Path
+     * @throws Exceptions\Invalid
+     * @throws Exceptions\PermissionDenied
+     */
+    public function remove($name)
+    {
+        $loader = $this->loader($name);
+        $path   = $loader->path();
+
+        if (!File::isFile($path))
+        {
+            throw new NotFound\Path($path);
+        }
+
+        return File::remove($path);
     }
 
 }
