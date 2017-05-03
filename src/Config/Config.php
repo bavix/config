@@ -42,6 +42,7 @@ class Config
      *
      * @param string $root
      *
+     * @throws Exceptions\Invalid
      * @throws Exceptions\PermissionDenied
      */
     public function __construct($root)
