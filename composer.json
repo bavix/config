@@ -1,0 +1,23 @@
+{
+  "name": "bavix/config",
+  "description": "config",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "REZ1DENT3",
+      "email": "info@babichev.net"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Bavix\\": "src/"
+    }
+  },
+  "require": {
+    "bavix/sdk": "^1.0",
+    "bavix/slice": "^1.0"
+  },
+  "require-dev": {
+    "symfony/yaml": "^3.2"
+  }
+}

@@ -1,0 +1,5 @@
+name: bavix/config
+description: yaml
+license: MIT
+authors:
+    - { name: REZ1DENT3, email: info@babichev.net }
