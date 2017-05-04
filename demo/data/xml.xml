@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bavix created-with="https://github.com/bavix/xml" created-at="2017-05-04 10:45:41">
+  <name>bavix/config</name>
+  <description>%xml.description%</description>
+  <license>MIT</license>
+  <authors>
+    <name>REZ1DENT3</name>
+    <email>info@babichev.net</email>
+  </authors>
+</bavix>

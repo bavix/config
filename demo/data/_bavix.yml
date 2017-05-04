@@ -6,3 +6,5 @@ php:
   description: php
 json:
   description: json
+xml:
+  description: xml

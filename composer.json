@@ -18,6 +18,7 @@
     "bavix/slice": "^1.0"
   },
   "require-dev": {
+    "bavix/xml": "^1.0",
     "symfony/yaml": "^3.2"
   }
 }
