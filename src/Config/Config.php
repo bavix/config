@@ -176,4 +176,14 @@ class Config
         return File::remove($path);
     }
 
+    /**
+     * @return $this
+     */
+    public function cleanup()
+    {
+        $this->slices = [];
+        
+        return $this;
+    }
+
 }
