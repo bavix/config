@@ -181,8 +181,9 @@ class Config
      */
     public function cleanup()
     {
-        $this->slices = [];
-        
+        $this->loaders = [];
+        $this->slices  = [];
+
         return $this;
     }
 
