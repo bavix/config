@@ -22,4 +22,4 @@ config - library for working with configs.
 ---
 Supported by
 
-[![Supported by JetBrains](https://raw.githubusercontent.com/bavix/development-through/master/jetbrains.svg)](https://www.jetbrains.com/)
+[![Supported by JetBrains](https://cdn.rawgit.com/bavix/development-through/46475b4b/jetbrains.svg)](https://www.jetbrains.com/)
