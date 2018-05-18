@@ -18,3 +18,8 @@ config - library for working with configs.
 * **Version**: [![Latest Stable Version](https://poser.pugx.org/bavix/config/v/stable)](https://packagist.org/packages/bavix/config)
 * **PHP Version**: 7.1+ 
 * **[Composer](https://getcomposer.org/):** `composer require bavix/config`
+
+---
+Supported by
+
+[![Supported by JetBrains](https://raw.githubusercontent.com/bavix/development-through/master/jetbrains.svg)](https://www.jetbrains.com/)
