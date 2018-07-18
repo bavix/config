@@ -11,7 +11,7 @@
 [![License](https://poser.pugx.org/bavix/config/license)](https://packagist.org/packages/bavix/config)
 [![composer.lock](https://poser.pugx.org/bavix/config/composerlock)](https://packagist.org/packages/bavix/config)
 
-config - library for working with configs.
+config - Lightweight configuration file loader that supports popular formats.
 
 * **Vendor**: bavix
 * **Package**: config

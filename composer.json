@@ -1,10 +1,10 @@
 {
   "name": "bavix/config",
-  "description": "config",
+  "description": "Lightweight configuration file loader that supports popular formats",
   "license": "MIT",
   "authors": [
     {
-      "name": "REZ1DENT3",
+      "name": "Babichev Maxim",
       "email": "info@babichev.net"
     }
   ],
