@@ -47,17 +47,47 @@ class Config
      */
     public function __construct($root)
     {
-        $this->root       = Path::slash($root);
+        $this->root = Path::slash($root);
         $this->extensions = FileLoader::extensions();
 
-        try
-        {
+        try {
             $this->parameters = $this->loader('_bavix')->asSlice();
-        }
-        catch (NotFound\Path $path)
-        {
+        } catch (NotFound\Path $path) {
             // file `_bavix` not found
         }
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return FileLoader\DataInterface
+     *
+     * @throws NotFound\Path
+     * @throws Exceptions\Invalid
+     * @throws Exceptions\PermissionDenied
+     */
+    protected function loader($name)
+    {
+        if (false !== \strpos('.', $name)) {
+            throw new Exceptions\Invalid($name);
+        }
+
+        if (isset($this->loaders[$name])) {
+            return $this->loaders[$name];
+        }
+
+        foreach ($this->extensions as $extension) {
+            try {
+                $path = $this->buildPath($name, $extension);
+                $this->loaders[$name] = FileLoader::load($path);
+
+                return $this->loaders[$name];
+            } catch (NotFound\Path $argumentException) {
+                continue;
+            }
+        }
+
+        throw new NotFound\Path($this->root . $name);
     }
 
     /**
@@ -74,45 +104,6 @@ class Config
     /**
      * @param string $name
      *
-     * @return FileLoader\DataInterface
-     *
-     * @throws NotFound\Path
-     * @throws Exceptions\Invalid
-     * @throws Exceptions\PermissionDenied
-     */
-    protected function loader($name)
-    {
-        if (preg_match('~\.~', $name))
-        {
-            throw new Exceptions\Invalid($name);
-        }
-
-        if (isset($this->loaders[$name]))
-        {
-            return $this->loaders[$name];
-        }
-
-        foreach ($this->extensions as $extension)
-        {
-            try
-            {
-                $path                 = $this->buildPath($name, $extension);
-                $this->loaders[$name] = FileLoader::load($path);
-
-                return $this->loaders[$name];
-            }
-            catch (NotFound\Path $argumentException)
-            {
-                continue;
-            }
-        }
-
-        throw new NotFound\Path($this->root . $name);
-    }
-
-    /**
-     * @param string $name
-     *
      * @return Slice
      *
      * @throws NotFound\Path
@@ -121,8 +112,7 @@ class Config
      */
     public function get($name)
     {
-        if (empty($this->slices[$name]))
-        {
+        if (empty($this->slices[$name])) {
             $this->slices[$name] = $this->loader($name)->asSlice(
                 $this->parameters
             );
@@ -132,7 +122,7 @@ class Config
     }
 
     /**
-     * @param string      $name
+     * @param string $name
      * @param Slice|array $data
      *
      * @return bool
@@ -142,14 +132,10 @@ class Config
      */
     public function save($name, $data)
     {
-        try
-        {
+        try {
             return $this->loader($name)->save($data);
-        }
-        catch (NotFound\Path $exception)
-        {
+        } catch (NotFound\Path $exception) {
             File::touch($this->buildPath($name, $this->extensions[0]));
-
             return $this->save($name, $data);
         }
     }
@@ -166,10 +152,9 @@ class Config
     public function remove($name)
     {
         $loader = $this->loader($name);
-        $path   = $loader->path();
+        $path = $loader->path();
 
-        if (!File::isFile($path))
-        {
+        if (!File::isFile($path)) {
             throw new NotFound\Path($path);
         }
 
@@ -182,7 +167,7 @@ class Config
     public function cleanup()
     {
         $this->loaders = [];
-        $this->slices  = [];
+        $this->slices = [];
 
         return $this;
     }

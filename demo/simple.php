@@ -6,8 +6,7 @@ $config = new \Bavix\Config\Config(__DIR__ . '/data');
 
 $files = \Bavix\SDK\FileLoader::extensions();
 
-foreach ($files as $file)
-{
+foreach ($files as $file) {
     var_dump($config->get($file)->description);
 }
 
